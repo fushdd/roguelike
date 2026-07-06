@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.gameObject.name)
@@ -45,6 +45,15 @@ public class Bullet : MonoBehaviour
             // destroy the bullet if it got inside a wall somehow
             case "Inside":
                 Destroy(gameObject);
+                break;
+
+            // TEMPORARY; FOR TESTING
+            case "Player":
+                collision.gameObject.GetComponent<PlayerHealth>().Damage();
+                Destroy(gameObject);
+                break;
+
+            default:
                 break;
         }
     }

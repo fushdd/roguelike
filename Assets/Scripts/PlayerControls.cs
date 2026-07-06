@@ -8,6 +8,7 @@ public class PlayerControls : MonoBehaviour
 
     public GameObject bullet;
     public float bulletSpeed;
+    public float bulletLifespan;
 
     private Vector2 movementVector;
     private Rigidbody2D rb;
@@ -30,10 +31,12 @@ public class PlayerControls : MonoBehaviour
     private void OnAttack()
     {
         GameObject newBullet = Instantiate(bullet);
-        newBullet.transform.position = transform.position + direction.normalized * 1.3f;
+        newBullet.transform.position = transform.position + direction.normalized * 1.1f;
 
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
         newBulletRb.linearVelocity = direction.normalized * bulletSpeed;
+
+        Destroy(newBullet, bulletLifespan);
     }
 
     private void FixedUpdate()
