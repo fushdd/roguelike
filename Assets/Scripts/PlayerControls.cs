@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -44,6 +45,12 @@ public class PlayerControls : MonoBehaviour
 
         // destroy after
         Destroy(newBullet, bulletLifespan);
+    }
+
+    // FOR TESTING
+    private void OnReset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void FixedUpdate()
