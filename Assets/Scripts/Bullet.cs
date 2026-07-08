@@ -4,16 +4,30 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    private float damage;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
+    public void Initialize(float damage)
+    {
+        this.damage = damage;
+    }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.TryGetComponent<Enemy>(out var enemy))
+        {
+            enemy.ReceiveDamage(damage);
+            Destroy(gameObject);
+        }
+
+        // ricochet off walls
         switch (collision.gameObject.name)
         {
-            // ricochet off walls
+            
             case "Left":
                 if (rb.linearVelocityX > 0)
                 {
@@ -44,12 +58,6 @@ public class Bullet : MonoBehaviour
 
             // destroy the bullet if it got inside a wall somehow
             case "Inside":
-                Destroy(gameObject);
-                break;
-
-            // TEMPORARY; FOR TESTING
-            case "Player":
-                collision.gameObject.GetComponent<PlayerHealth>().Damage();
                 Destroy(gameObject);
                 break;
 

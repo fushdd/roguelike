@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2171990799947620043}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -265,6 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 7
   bullet: {fileID: 2147071152825673116, guid: fa0d7be605ff79c4881ec0fcf45492d5, type: 3}
+  damage: 1
   bulletSpeed: 20
   bulletLifespan: 1.5
 --- !u!114 &7909011031999490334
@@ -280,10 +281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   health: 4
-  invulnerabilityTime: 1
+  invulnerabilityTime: 2
   timeBeforeRegeneration: 5
   regenerationPerSecond: 1
-  manager: {fileID: 3769087157588383441, guid: 62519b46071242c448e8082d9307e657, type: 3}
 --- !u!114 &2171990799947620043
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour
     public float speed;
 
     public GameObject bullet;
+    public float damage;
     public float bulletSpeed;
     public float bulletLifespan;
 
@@ -31,11 +32,17 @@ public class PlayerControls : MonoBehaviour
     private void OnAttack()
     {
         GameObject newBullet = Instantiate(bullet);
+        // pass damage to the bullet
+        newBullet.GetComponent<Bullet>().Initialize(damage);
+
+        // spawn it in front of the gun
         newBullet.transform.position = transform.position + direction.normalized * 1.1f;
 
+        // assign velocity based on player's direction (mousePos)
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
         newBulletRb.linearVelocity = direction.normalized * bulletSpeed;
 
+        // destroy after
         Destroy(newBullet, bulletLifespan);
     }
 

@@ -12,12 +12,12 @@ public class PlayerHealth : MonoBehaviour
     private float regenerationCooldown;
     private float healthRegenerated; // to regen health every second not frame
 
-    public void Damage()
+    public void ReceiveDamage()
     {
         if (isInvulnerable) return;
 
         health -= 1;
-        regenerationCooldown = timeBeforeRegeneration;
+        regenerationCooldown = timeBeforeRegeneration + invulnerabilityTime; // start the timer when invuln ends
         healthRegenerated = 0;
 
         StartCoroutine(BecomeInvulnerable());
@@ -40,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
+
         if (health >= 4) return;
 
         if (regenerationCooldown > 0)
