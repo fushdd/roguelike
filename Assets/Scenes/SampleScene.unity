@@ -3154,8 +3154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b64612616443b40adbd19b963e3966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnEnemies
-  enemyCount: 5
-  enemy: {fileID: 1655234958062261852, guid: 1225714837db25449993072f9f86d409, type: 3}
+  enemies:
+  - {fileID: 1655234958062261852, guid: 1225714837db25449993072f9f86d409, type: 3}
+  - {fileID: 1655234958062261852, guid: d198815196b4bc748bd95613ce396e18, type: 3}
+  - {fileID: 1655234958062261852, guid: e4e571d3993b4774ca4d71e551bb5871, type: 3}
+  floorPower: 10
 --- !u!1001 &1111249580
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ public class Enemy : MonoBehaviour
 {
     public float speed;
     public float health;
+    public float power;
 
     private PlayerHealth player;
     private Rigidbody2D rb;
@@ -13,6 +14,11 @@ public class Enemy : MonoBehaviour
     {
         player = FindFirstObjectByType<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public float GetPower()
+    {
+        return power;
     }
 
     public void ReceiveDamage(float damage)

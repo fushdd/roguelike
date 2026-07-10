@@ -5,10 +5,11 @@ public class SpawnEnemies : MonoBehaviour
 {
 
     private List<Transform> spawnPointList;
-    public float enemyCount;
-    public GameObject enemy;
 
-    private void Awake()
+    public List<GameObject> enemies;
+    public float floorPower;
+
+    private void Start()
     {
         spawnPointList = new();
         
@@ -19,11 +20,24 @@ public class SpawnEnemies : MonoBehaviour
         }
 
         // spawn enemies at random spawn points
-        for (int i = 0; i < enemyCount; i++)
+        while (floorPower > 0)
         {
-            int randomIndex = Random.Range(0, spawnPointList.Count);
-            Instantiate(enemy, spawnPointList[randomIndex].position, Quaternion.identity);
-            spawnPointList.RemoveAt(randomIndex);
+            int randomEnemyIndex = Random.Range(0, enemies.Count);
+            Enemy enemy = enemies[randomEnemyIndex].GetComponent<Enemy>();
+            float enemyPower = enemy.GetPower();
+            // if chosen enemy is too strong, remove from the list and try again
+            if (enemyPower > floorPower)
+            {
+                enemies.RemoveAt(randomEnemyIndex);
+                continue;
+            }
+
+            // choose random spawn point
+            int randomSpawnPointIndex = Random.Range(0, spawnPointList.Count);
+
+            Instantiate(enemy, spawnPointList[randomSpawnPointIndex].position, Quaternion.identity);
+            floorPower -= enemyPower;
+            spawnPointList.RemoveAt(randomSpawnPointIndex);
         }
 
     }

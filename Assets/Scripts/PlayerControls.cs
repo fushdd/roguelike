@@ -37,7 +37,7 @@ public class PlayerControls : MonoBehaviour
         newBullet.GetComponent<Bullet>().Initialize(damage);
 
         // spawn it in front of the gun
-        newBullet.transform.position = transform.position + direction.normalized * 1.1f;
+        newBullet.transform.position = transform.position + direction.normalized * 0.9f;
 
         // assign velocity based on player's direction (mousePos)
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
