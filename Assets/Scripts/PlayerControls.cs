@@ -1,5 +1,5 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -11,18 +11,22 @@ public class PlayerControls : MonoBehaviour
     public float damage;
     public float bulletSpeed;
     public float bulletLifespan;
+    public float attackCooldown;
 
     private Vector2 movementVector;
     private Rigidbody2D rb;
     private Camera cam;
+    private AudioSource audioSource;
 
     private Vector3 direction;
+    private float curAttackCooldown = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnMove(InputValue movementValue)
@@ -32,6 +36,8 @@ public class PlayerControls : MonoBehaviour
 
     private void OnAttack()
     {
+        if (curAttackCooldown > 0) return;
+
         GameObject newBullet = Instantiate(bullet);
         // pass damage to the bullet
         newBullet.GetComponent<Bullet>().Initialize(damage);
@@ -42,6 +48,12 @@ public class PlayerControls : MonoBehaviour
         // assign velocity based on player's direction (mousePos)
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
         newBulletRb.linearVelocity = direction.normalized * bulletSpeed;
+
+        // start the cooldown
+        curAttackCooldown = attackCooldown;
+
+        // play the audio
+        audioSource.Play();
 
         // destroy after
         Destroy(newBullet, bulletLifespan);
@@ -68,5 +80,11 @@ public class PlayerControls : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        // process attack cooldown
+        if (curAttackCooldown > 0)
+        {
+            curAttackCooldown -= Time.deltaTime;
+        }
     }
 }

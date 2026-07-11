@@ -3,12 +3,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private AudioSource audioSource;
 
     private float damage;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Initialize(float damage)
@@ -32,6 +34,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityX > 0)
                 {
                     rb.linearVelocityX = -rb.linearVelocityX;
+                    audioSource.Play();
                 }
                 break;
 
@@ -39,6 +42,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityX < 0)
                 {
                     rb.linearVelocityX = -rb.linearVelocityX;
+                    audioSource.Play();
                 }
                 break;
 
@@ -46,6 +50,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityY < 0)
                 {
                     rb.linearVelocityY = -rb.linearVelocityY;
+                    audioSource.Play();
                 }
                 break;
 
@@ -53,6 +58,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityY > 0)
                 {
                     rb.linearVelocityY = -rb.linearVelocityY;
+                    audioSource.Play();
                 }
                 break;
 

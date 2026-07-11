@@ -33,7 +33,20 @@ public class PlayerHealth : MonoBehaviour
     {
         isInvulnerable = true;
 
-        yield return new WaitForSeconds(invulnerabilityTime);
+        float timer = invulnerabilityTime;
+
+        // visual representation
+        while (timer > 0)
+        {
+            GetComponent<SpriteRenderer>().enabled = !GetComponent<SpriteRenderer>().enabled;
+            // (I_I)
+            transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = !transform.GetChild(0).GetComponent<SpriteRenderer>().enabled;
+            yield return new WaitForSeconds(0.15f);
+            timer -= 0.15f;
+        }
+
+        GetComponent<SpriteRenderer>().enabled = true;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 
         isInvulnerable = false;
     }
