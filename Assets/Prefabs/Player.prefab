@@ -270,6 +270,12 @@ MonoBehaviour:
   bulletSpeed: 20
   bulletLifespan: 1.5
   attackCooldown: 0.75
+  gunshotAudioClips:
+  - {fileID: 8300000, guid: 2203773368e4340d98c114f55c2dd7fd, type: 3}
+  - {fileID: 8300000, guid: 4d6281aa604094f04839cffa502096c0, type: 3}
+  - {fileID: 8300000, guid: 0dbe91efb8ee94e6695ef0f552d202ce, type: 3}
+  - {fileID: 8300000, guid: b33e2cff5225f4437a43a11d35763d46, type: 3}
+  - {fileID: 8300000, guid: b2d159f7e00d44d9bbc2d50a0c4fef59, type: 3}
 --- !u!114 &7909011031999490334
 MonoBehaviour:
   m_ObjectHideFlags: 0

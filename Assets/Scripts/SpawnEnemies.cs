@@ -6,13 +6,13 @@ public class SpawnEnemies : MonoBehaviour
 
     private List<Transform> spawnPointList;
 
-    public List<GameObject> enemies;
-    public float floorPower;
+    [SerializeField] private List<GameObject> enemies;
+    [SerializeField] private float floorPower;
 
     private void Start()
     {
         spawnPointList = new();
-        
+
         // collect spawn points
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -38,7 +38,15 @@ public class SpawnEnemies : MonoBehaviour
             Instantiate(enemy, spawnPointList[randomSpawnPointIndex].position, Quaternion.identity);
             floorPower -= enemyPower;
             spawnPointList.RemoveAt(randomSpawnPointIndex);
+            // increment enemy count
+            GameManager.Instance.EnemySpawned();
         }
+
+    }
+
+
+    private void Update()
+    {
 
     }
 

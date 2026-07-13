@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed;
-    public float health;
-    public float power;
+
+    [SerializeField] private float speed;
+    [SerializeField] private float health;
+    [SerializeField] private float power;
 
     private PlayerHealth player;
     private Rigidbody2D rb;
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        GameManager.Instance.EnemyKilled(this.GetComponent<Enemy>());
         Destroy(gameObject);
     }
 

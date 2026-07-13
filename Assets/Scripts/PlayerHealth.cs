@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float health;
-    public float invulnerabilityTime;
-    public float timeBeforeRegeneration;
-    public float regenerationPerSecond;
+    [SerializeField] private float health;
+    [SerializeField] private float invulnerabilityTime;
+    [SerializeField] private float timeBeforeRegeneration;
+    [SerializeField] private float regenerationPerSecond;
 
     private bool isInvulnerable = false;
     private float regenerationCooldown;

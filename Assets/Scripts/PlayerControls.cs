@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] private float speed;
 
-    public GameObject bullet;
-    public float damage;
-    public float bulletSpeed;
-    public float bulletLifespan;
-    public float attackCooldown;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private float damage;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletLifespan;
+    [SerializeField] private float attackCooldown;
+
+    [SerializeField] private AudioClip[] gunshotAudioClips;
 
     private Vector2 movementVector;
     private Rigidbody2D rb;
@@ -53,6 +55,7 @@ public class PlayerControls : MonoBehaviour
         curAttackCooldown = attackCooldown;
 
         // play the audio
+        audioSource.generator = gunshotAudioClips[Random.Range(0, gunshotAudioClips.Length)];
         audioSource.Play();
 
         // destroy after

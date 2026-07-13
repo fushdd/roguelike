@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
     private AudioSource audioSource;
+
+    [SerializeField] private AudioClip[] ricochetAudioClips;
 
     private float damage;
 
@@ -34,6 +37,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityX > 0)
                 {
                     rb.linearVelocityX = -rb.linearVelocityX;
+                    audioSource.generator = ricochetAudioClips[Random.Range(0, ricochetAudioClips.Length)];
                     audioSource.Play();
                 }
                 break;
@@ -42,6 +46,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityX < 0)
                 {
                     rb.linearVelocityX = -rb.linearVelocityX;
+                    audioSource.generator = ricochetAudioClips[Random.Range(0, ricochetAudioClips.Length)];
                     audioSource.Play();
                 }
                 break;
@@ -50,6 +55,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityY < 0)
                 {
                     rb.linearVelocityY = -rb.linearVelocityY;
+                    audioSource.generator = ricochetAudioClips[Random.Range(0, ricochetAudioClips.Length)];
                     audioSource.Play();
                 }
                 break;
@@ -58,6 +64,7 @@ public class Bullet : MonoBehaviour
                 if (rb.linearVelocityY > 0)
                 {
                     rb.linearVelocityY = -rb.linearVelocityY;
+                    audioSource.generator = ricochetAudioClips[Random.Range(0, ricochetAudioClips.Length)];
                     audioSource.Play();
                 }
                 break;

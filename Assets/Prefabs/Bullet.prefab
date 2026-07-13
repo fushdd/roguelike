@@ -170,6 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b2a871581314149bc82d2752468f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  ricochetAudioClips:
+  - {fileID: 8300000, guid: 4031e628cfc564d93ac39f8955afbbda, type: 3}
+  - {fileID: 8300000, guid: e8210ab1fe6784e7eb15956b135716c9, type: 3}
 --- !u!82 &7247565840868510043
 AudioSource:
   m_ObjectHideFlags: 0
@@ -181,7 +184,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: e8210ab1fe6784e7eb15956b135716c9, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1.45

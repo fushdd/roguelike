@@ -7,8 +7,8 @@ public class PlayerHealthManager : MonoBehaviour
     private SpriteRenderer healthState2;
     private SpriteRenderer healthState3;
 
-    public GameObject healthIndicator;
-    public GameObject player;
+    [SerializeField] private GameObject healthIndicator;
+    [SerializeField] private GameObject player;
 
     private PlayerHealth playerHealth;
 
