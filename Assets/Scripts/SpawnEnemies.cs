@@ -7,10 +7,11 @@ public class SpawnEnemies : MonoBehaviour
     private List<Transform> spawnPointList;
 
     [SerializeField] private List<GameObject> enemies;
-    [SerializeField] private float floorPower;
 
     private void Start()
     {
+        float floorPower = GameManager.Instance.floorPower;
+
         spawnPointList = new();
 
         // collect spawn points

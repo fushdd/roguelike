@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TMP_Text scoreText;
 
+    private GameObject FloorEndCanvas;
+
     private void Awake()
     {
         if (Instance != null)
@@ -19,8 +21,23 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        FloorEndCanvas = transform.Find("EndFloorCanvas").gameObject;
+    }
+
     public void UpdateScore(float score)
     {
         scoreText.text = $"Score: {score}";
+    }
+
+    public void ShowFloorEndMessage()
+    {
+        FloorEndCanvas.SetActive(true);
+    }
+
+    public void HideFloorEndMessage()
+    {
+        FloorEndCanvas.SetActive(false);
     }
 }

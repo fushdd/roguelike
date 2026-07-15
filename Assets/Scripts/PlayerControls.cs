@@ -33,33 +33,37 @@ public class PlayerControls : MonoBehaviour
 
     private void OnMove(InputValue movementValue)
     {
+        if (GameManager.Instance.isUpgrading) return;
+
         movementVector = movementValue.Get<Vector2>();
     }
 
     private void OnAttack()
     {
+        if (GameManager.Instance.isUpgrading) return;
+
         if (curAttackCooldown > 0) return;
 
         GameObject newBullet = Instantiate(bullet);
         // pass damage to the bullet
-        newBullet.GetComponent<Bullet>().Initialize(damage);
+        newBullet.GetComponent<Bullet>().Initialize(damage * (1 + GameManager.Instance.damageMultiplier / 100f));
 
         // spawn it in front of the gun
         newBullet.transform.position = transform.position + direction.normalized * 0.9f;
 
         // assign velocity based on player's direction (mousePos)
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
-        newBulletRb.linearVelocity = direction.normalized * bulletSpeed;
+        newBulletRb.linearVelocity = direction.normalized * bulletSpeed * (1 + GameManager.Instance.bulletSpeedMultiplier / 100f);
 
         // start the cooldown
-        curAttackCooldown = attackCooldown;
+        curAttackCooldown = attackCooldown * (1 + GameManager.Instance.attackCooldownMultiplier / 100f);
 
         // play the audio
         audioSource.generator = gunshotAudioClips[Random.Range(0, gunshotAudioClips.Length)];
         audioSource.Play();
 
         // destroy after
-        Destroy(newBullet, bulletLifespan);
+        Destroy(newBullet, bulletLifespan * (1 + GameManager.Instance.bulletLifespanMultiplier / 100f));
     }
 
     // FOR TESTING
@@ -68,13 +72,24 @@ public class PlayerControls : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void OnConfirmFloorEnd()
+    {
+        if (!GameManager.Instance.floorCleared) return;
+
+        GameManager.Instance.InitiateUpgradeChoice();
+    }
+
     private void FixedUpdate()
     {
-        rb.linearVelocity = movementVector * speed;
+        if (GameManager.Instance.isUpgrading) return;
+
+        rb.linearVelocity = movementVector * speed * (1 + GameManager.Instance.speedMultiplier / 100f);
     }
 
     private void Update()
     {
+        if (GameManager.Instance.isUpgrading) return;
+
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -cam.transform.position.z));
 
