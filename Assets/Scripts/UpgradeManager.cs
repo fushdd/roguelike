@@ -33,36 +33,43 @@ public class UpgradeManager : MonoBehaviour
         float speedStat = GenerateRandomStat(floorPower);
         upgradeList.Add(new Upgrade("Speed", $"Increases your speed by {speedStat}%", () =>
         {
-            GameManager.Instance.UpdateSpeedMultiplier(speedStat);
-            GameManager.Instance.InitiateNewScene();
+            GameManager.Instance.UpdateSpeedMultiplier(speedStat / 100f);
+            GameManager.Instance.InitiateNewFloor();
         }));
 
         float damageStat = GenerateRandomStat(floorPower);
         upgradeList.Add(new Upgrade("Damage", $"Increases your damage by {damageStat}%", () =>
         {
-            GameManager.Instance.UpdateDamageMultiplier(damageStat);
-            GameManager.Instance.InitiateNewScene();
+            GameManager.Instance.UpdateDamageMultiplier(damageStat / 100f);
+            GameManager.Instance.InitiateNewFloor();
         }));
 
         float bulletLifespanStat = GenerateRandomStat(floorPower);
         upgradeList.Add(new Upgrade("Bullet Lifespan", $"Increases your bullets' lifespan by {bulletLifespanStat}%", () =>
         {
-            GameManager.Instance.UpdateBulletLifespanMultiplier(bulletLifespanStat);
-            GameManager.Instance.InitiateNewScene();
+            GameManager.Instance.UpdateBulletLifespanMultiplier(bulletLifespanStat / 100f);
+            GameManager.Instance.InitiateNewFloor();
         }));
 
         float bulletSpeedStat = GenerateRandomStat(floorPower);
         upgradeList.Add(new Upgrade("Bullet Speed", $"Increases your bullets' speed by {bulletSpeedStat}%", () =>
         {
-            GameManager.Instance.UpdateBulletSpeedMultiplier(bulletSpeedStat);
-            GameManager.Instance.InitiateNewScene();
+            GameManager.Instance.UpdateBulletSpeedMultiplier(bulletSpeedStat / 100f);
+            GameManager.Instance.InitiateNewFloor();
         }));
 
         float attackCooldownStat = GenerateRandomStat(floorPower);
         upgradeList.Add(new Upgrade("Attack Cooldown", $"Decreases your attack cooldown by {attackCooldownStat}%", () =>
         {
-            GameManager.Instance.UpdateAttackCooldownMultiplier(-attackCooldownStat);
-            GameManager.Instance.InitiateNewScene();
+            GameManager.Instance.UpdateAttackCooldownMultiplier(-attackCooldownStat / 100f);
+            GameManager.Instance.InitiateNewFloor();
+        }));
+
+        float doubleScoreChanceStat = GenerateRandomStat(floorPower);
+        upgradeList.Add(new Upgrade("Double Score", $"Increases your chance of getting double score for an enemy killed by {doubleScoreChanceStat}%", () =>
+        {
+            GameManager.Instance.UpdateDoubleScoreChance(doubleScoreChanceStat / 100f);
+            GameManager.Instance.InitiateNewFloor();
         }));
 
 
@@ -89,7 +96,7 @@ public class UpgradeManager : MonoBehaviour
 
     private float GenerateRandomStat(float floorPower)
     {
-        float randomStat = (float)Math.Round(UnityEngine.Random.Range(floorPower, floorPower + 20f));
+        float randomStat = (float)Math.Round(UnityEngine.Random.Range(floorPower, floorPower + 5f));
         return randomStat;
     }
 }

@@ -10,28 +10,28 @@ public class GameManager : MonoBehaviour
     private float score;
     private int enemiesAlive = 0;
     public bool isUpgrading { get; private set; } // ??
-    public float floorPower { get; private set; } // ??
+    public int floorPower { get; private set; } // ??
     public bool floorCleared = false; // ??
 
     // buffs
-    public void UpdateSpeedMultiplier(float value) => speedMultiplier += value;
     public float speedMultiplier { get; private set; }
+    public void UpdateSpeedMultiplier(float value) => speedMultiplier += value;
 
-
-    public void UpdateDamageMultiplier(float value) => damageMultiplier += value;
     public float damageMultiplier { get; private set; }
+    public void UpdateDamageMultiplier(float value) => damageMultiplier += value;
 
-
-    public void UpdateBulletLifespanMultiplier(float value) => bulletLifespanMultiplier += value;
     public float bulletLifespanMultiplier { get; private set; }
+    public void UpdateBulletLifespanMultiplier(float value) => bulletLifespanMultiplier += value;
 
-
-    public void UpdateBulletSpeedMultiplier(float value) => bulletSpeedMultiplier += value;
     public float bulletSpeedMultiplier { get; private set; }
+    public void UpdateBulletSpeedMultiplier(float value) => bulletSpeedMultiplier += value;
 
-
-    public void UpdateAttackCooldownMultiplier(float value) => attackCooldownMultiplier += value;
     public float attackCooldownMultiplier { get; private set; }
+    public void UpdateAttackCooldownMultiplier(float value) => attackCooldownMultiplier += value;
+
+    public float doubleScoreChance { get; private set; }
+    public void UpdateDoubleScoreChance(float value) => doubleScoreChance += value;
+
 
 
     private void Awake()
@@ -48,8 +48,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UIManager.Instance.UpdateScore(0);
         floorPower = 1;
+        score = 0;
+        UIManager.Instance.UpdateScore(score);
+        UIManager.Instance.UpdateFloor(floorPower);
     }
 
     public void EnemySpawned()
@@ -59,7 +61,24 @@ public class GameManager : MonoBehaviour
 
     public void EnemyKilled(Enemy enemy)
     {
-        UpdateScore(enemy.GetPower());
+        // roll for double score
+        int scoreMultiplier = 1;
+
+        if (doubleScoreChance <= 0)
+        {
+            scoreMultiplier = 1;
+        }
+        else if (doubleScoreChance >= 1)
+        {
+            scoreMultiplier = 2;
+        }
+        else if (Random.value < doubleScoreChance)
+        {
+            scoreMultiplier = 2;
+        }
+
+        UpdateScore(enemy.GetPower() * scoreMultiplier);
+
         enemiesAlive--;
 
         if (enemiesAlive <= 0)
@@ -79,8 +98,11 @@ public class GameManager : MonoBehaviour
         upgradeManager.StartUpgrading();
     }
 
-    public void InitiateNewScene()
+    public void InitiateNewFloor()
     {
+        floorPower += 1;
+        UIManager.Instance.UpdateFloor(floorPower);
+
         isUpgrading = false;
         floorCleared = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

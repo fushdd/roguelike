@@ -46,24 +46,24 @@ public class PlayerControls : MonoBehaviour
 
         GameObject newBullet = Instantiate(bullet);
         // pass damage to the bullet
-        newBullet.GetComponent<Bullet>().Initialize(damage * (1 + GameManager.Instance.damageMultiplier / 100f));
+        newBullet.GetComponent<Bullet>().Initialize(damage * (1 + GameManager.Instance.damageMultiplier));
 
         // spawn it in front of the gun
         newBullet.transform.position = transform.position + direction.normalized * 0.9f;
 
         // assign velocity based on player's direction (mousePos)
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
-        newBulletRb.linearVelocity = direction.normalized * bulletSpeed * (1 + GameManager.Instance.bulletSpeedMultiplier / 100f);
+        newBulletRb.linearVelocity = direction.normalized * bulletSpeed * (1 + GameManager.Instance.bulletSpeedMultiplier);
 
         // start the cooldown
-        curAttackCooldown = attackCooldown * (1 + GameManager.Instance.attackCooldownMultiplier / 100f);
+        curAttackCooldown = attackCooldown * (1 + GameManager.Instance.attackCooldownMultiplier);
 
         // play the audio
         audioSource.generator = gunshotAudioClips[Random.Range(0, gunshotAudioClips.Length)];
         audioSource.Play();
 
         // destroy after
-        Destroy(newBullet, bulletLifespan * (1 + GameManager.Instance.bulletLifespanMultiplier / 100f));
+        Destroy(newBullet, bulletLifespan * (1 + GameManager.Instance.bulletLifespanMultiplier));
     }
 
     // FOR TESTING
@@ -83,7 +83,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (GameManager.Instance.isUpgrading) return;
 
-        rb.linearVelocity = movementVector * speed * (1 + GameManager.Instance.speedMultiplier / 100f);
+        rb.linearVelocity = movementVector * speed * (1 + GameManager.Instance.speedMultiplier);
     }
 
     private void Update()
